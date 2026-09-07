@@ -159,6 +159,7 @@
             align-items: center;
             gap: 12px;
             text-align: right;
+            flex: 1;
         }
 
         .product-img {
@@ -167,12 +168,20 @@
             border-radius: 10px;
             object-fit: cover;
             border: 1px solid var(--dark-color);
+            flex-shrink: 0;
         }
 
         .product-name {
             font-size: 13px;
             font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .product-desc {
+            font-size: 11px;
+            opacity: 0.75;
             margin-bottom: 4px;
+            line-height: 1.3;
         }
 
         .product-price {
@@ -190,6 +199,7 @@
             font-weight: bold;
             cursor: pointer;
             font-size: 14px;
+            flex-shrink: 0;
         }
 
         /* زر السلة العائم */
@@ -392,12 +402,12 @@
     <div class="checker-border checker-bottom"></div>
 
     <script>
-        // قائمة المشروبات وحدها
+        // قائمة المشروبات
         const drinksProducts = [
             { id: 1, name: "Salted Vanilla Matcha", price: 1.600, img: "https://i.postimg.cc/rmZQBt3g/IMG-0888.png", category: "drinks" },
             { id: 2, name: "Strawberry Matcha Latte", price: 1.700, img: "https://i.postimg.cc/bNj5010t/IMG-0890.png", category: "drinks" },
             { id: 3, name: "Mango Matcha Latte", price: 1.800, img: "https://i.postimg.cc/qMkLMwXZ/IMG-0889.png", category: "drinks" },
-            { id: 4, name: "Salted Caramel Matcha Latte", price: 1.800, img: "https://i.postimg.cc/13bw6rwS/IMG-0894.jpg", category: "drinks" },
+            { id: 4, name: "Salted caramel matcha latte", price: 1.800, img: "https://i.postimg.cc/50NjVmZw/IMG-0894.jpg", category: "drinks" },
             { id: 5, name: "Crème Brûlée Matcha Latte", price: 1.900, img: "https://i.postimg.cc/W3zVvgY3/IMG-0891.jpg", category: "drinks" },
             { id: 6, name: "Rose Matcha Latte", price: 1.700, img: "https://i.postimg.cc/KjyygwvS/IMG-0892.jpg", category: "drinks" },
             { id: 7, name: "Cloudy Matcha Latte", price: 1.600, img: "https://i.postimg.cc/zGQ6g60M/IMG-0893.jpg", category: "drinks" },
@@ -405,12 +415,23 @@
             { id: 9, name: "Matcha with Ice Cream Sandwich", price: 1.600, img: "https://i.postimg.cc/MHjvzh3K/IMG-0900.jpg", category: "drinks" }
         ];
 
-        // قائمة الملحقات والباودر وحدها
+        // قائمة الملحقات والباودر والبوكسات
         const extrasProducts = [
-            { id: 10, name: "ماتشا لاتيه درجة عالية (50 جرام)", price: 6.500, img: "https://i.postimg.cc/qvpyGvZn/IMG-0883.png", category: "extras" },
-            { id: 11, name: "ماتشا فاخرة (Ceremonial Grade)", price: 7.500, img: "https://i.postimg.cc/bYQZFjnB/IMG-0886.png", category: "extras" },
-            { id: 12, name: "ماتشا ويسك (منفاخ الخفق)", price: 2.900, img: "https://i.postimg.cc/dtsVHZwy/IMG-0885.jpg", category: "extras" },
-            { id: 13, name: "ملعقة خشبية", price: 0.800, img: "https://i.postimg.cc/fTqD8H8f/IMG-0884.jpg", category: "extras" }
+            { 
+                id: 10, 
+                name: "بوكس الماتشا الكامل", 
+                price: 6.500, 
+                img: "https://i.postimg.cc/hvVh985j/IMG-7755.jpg", 
+                desc: "يحتوي على: ٥٠ جرام ماتشا باودر - سيروب - استيكرات - سترو - هدية بسيطة - كوب", 
+                category: "extras" 
+            },
+            { id: 11, name: "ماتشا لاتيه درجة عالية (50 جرام)", price: 6.500, img: "https://i.postimg.cc/qvpyGvZn/IMG-0883.png", desc: "", category: "extras" },
+            { id: 12, name: "ماتشا فاخرة (Ceremonial Grade)", price: 7.500, img: "https://i.postimg.cc/bYQZFjnB/IMG-0886.png", desc: "", category: "extras" },
+            { id: 13, name: "ماتشا ويسك (منفاخ الخفق)", price: 2.900, img: "https://i.postimg.cc/dtsVHZwy/IMG-0885.jpg", desc: "", category: "extras" },
+            { id: 14, name: "ملعقة خشبية", price: 0.800, img: "https://i.postimg.cc/fTqD8H8f/IMG-0884.jpg", desc: "", category: "extras" },
+            { id: 15, name: "الكوب البلاستيك", price: 0.200, img: "https://i.postimg.cc/9Q5rFkz2/IMG-7750.jpg", desc: "", category: "extras" },
+            { id: 16, name: "الكوب الورقي", price: 0.200, img: "https://i.postimg.cc/GtTmbPCF/IMG-7751.jpg", desc: "", category: "extras" },
+            { id: 17, name: "سيروب فانيلا (50 ملي)", price: 1.000, img: "https://i.postimg.cc/ry7SxQzP/IMG-7752.jpg", desc: "", category: "extras" }
         ];
 
         const allProducts = [...drinksProducts, ...extrasProducts];
@@ -446,12 +467,15 @@
 
             listToRender.forEach(p => {
                 let qty = cart[p.id] ? cart[p.id].qty : 0;
+                let descHTML = p.desc ? `<div class="product-desc">${p.desc}</div>` : '';
+                
                 listHTML += `
                     <div class="product-card">
                         <div class="product-info">
                             <img src="${p.img}" class="product-img" alt="${p.name}">
                             <div>
                                 <div class="product-name">${p.name}</div>
+                                ${descHTML}
                                 <div class="product-price">${p.price.toFixed(3)} ر.ع</div>
                             </div>
                         </div>
@@ -549,7 +573,6 @@
                 message += `\n\n(ملاحظة: تم إرسال طلب التحويل، وسأقوم بإرسال صورة الإيصال هنا فوراً)`;
             }
 
-            // رقم الواتساب المخصص للطلبات
             let whatsappNumber = '96891213020';
             let encodedMessage = encodeURIComponent(message);
             let whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
