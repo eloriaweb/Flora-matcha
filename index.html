@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +9,12 @@
             --bg-pink: #f4a2b9;
             --dark-color: #2b302c;
             --white: #ffffff;
-            --accent-pink: #ffb6c1;
         }
 
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-pink);
-            background-image: radial-gradient(circle, #f7b2c5 10%, #f4a2b9 90%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--dark-color);
             display: flex;
@@ -26,18 +24,11 @@
             position: relative;
         }
 
-        /* إطار المربعات المتناسق */
+        /* إطار خفيف وثابت لمنع أي تهنيج */
         .checker-border {
             width: 100%;
-            height: 25px;
-            background-image: 
-                linear-gradient(45deg, var(--dark-color) 25%, transparent 25%), 
-                linear-gradient(-45deg, var(--dark-color) 25%, transparent 25%), 
-                linear-gradient(45deg, transparent 75%, var(--dark-color) 75%), 
-                linear-gradient(-45deg, transparent 75%, var(--dark-color) 75%);
-            background-size: 30px 30px;
-            background-position: 0 0, 0 15px, 15px -15px, -15px 0px;
-            background-color: var(--bg-pink);
+            height: 20px;
+            background-color: var(--dark-color);
             position: fixed;
             z-index: 100;
         }
@@ -47,7 +38,7 @@
         .container {
             width: 100%;
             max-width: 480px;
-            padding: 45px 20px 90px 20px;
+            padding: 35px 15px 80px 15px;
             box-sizing: border-box;
             text-align: center;
             display: flex;
@@ -56,12 +47,32 @@
             z-index: 2;
         }
 
-        .logo-title {
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: 2px;
+        /* زر تبديل اللغة العلوي */
+        .lang-switch-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 5px;
+        }
+
+        .lang-btn {
+            background-color: var(--white);
+            border: 2px solid var(--dark-color);
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
             color: var(--dark-color);
-            margin: 10px 0 5px 0;
+            box-shadow: 0 2px 0px var(--dark-color);
+        }
+
+        .logo-title {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--dark-color);
+            margin: 5px 0 5px 0;
             text-transform: uppercase;
         }
 
@@ -69,10 +80,10 @@
             font-size: 14px;
             font-weight: 600;
             opacity: 0.85;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        /* الشاشات */
+        /* التحكم في إظهار وإخفاء الشاشات بسلاسة وبدون وميض */
         .screen {
             display: none;
             width: 100%;
@@ -84,49 +95,41 @@
             display: flex;
         }
 
-        /* الأزرار والبطاقات */
         .options-menu {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .menu-btn {
             background-color: var(--white);
             border: 2px solid var(--dark-color);
-            border-radius: 16px;
-            padding: 16px 20px;
-            font-size: 16px;
+            border-radius: 14px;
+            padding: 15px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--dark-color);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 0px var(--dark-color);
+            box-shadow: 0 3px 0px var(--dark-color);
             text-decoration: none;
-            transition: transform 0.1s;
         }
 
-        .menu-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0px var(--dark-color);
-        }
-
-        /* تبديل الأقسام داخل المنيو */
         .category-tabs {
             display: flex;
             gap: 10px;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .cat-tab {
             flex: 1;
             padding: 10px;
             border: 2px solid var(--dark-color);
-            border-radius: 12px;
+            border-radius: 10px;
             background: var(--white);
             font-weight: bold;
             cursor: pointer;
@@ -139,26 +142,54 @@
             color: var(--white);
         }
 
-        /* كارد المنتج في المنيو */
+        .notice-box {
+            width: 100%;
+            background: var(--white);
+            border: 2px solid var(--dark-color);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        /* اتجاه النصوص حسب اللغة */
+        html[dir="rtl"] .notice-box { text-align: right; }
+        html[dir="ltr"] .notice-box { text-align: left; }
+        html[dir="rtl"] .form-group { text-align: right; }
+        html[dir="ltr"] .form-group { text-align: left; }
+        html[dir="rtl"] .product-info { text-align: right; }
+        html[dir="ltr"] .product-info { text-align: left; }
+        html[dir="rtl"] .checkout-box { text-align: right; }
+        html[dir="ltr"] .checkout-box { text-align: left; }
+        html[dir="rtl"] .transfer-box { text-align: right; }
+        html[dir="ltr"] .transfer-box { text-align: left; }
+
+        .notice-box p {
+            margin: 4px 0;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* التصميم العرضي السابق المرتب */
         .product-card {
             background-color: var(--white);
             border: 2px solid var(--dark-color);
-            border-radius: 16px;
+            border-radius: 14px;
             padding: 12px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-sizing: border-box;
-            box-shadow: 0 4px 0px var(--dark-color);
+            box-shadow: 0 3px 0px var(--dark-color);
         }
 
         .product-info {
             display: flex;
             align-items: center;
             gap: 12px;
-            text-align: right;
             flex: 1;
         }
 
@@ -171,94 +202,99 @@
             flex-shrink: 0;
         }
 
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
         .product-name {
             font-size: 13px;
             font-weight: bold;
-            margin-bottom: 2px;
         }
 
         .product-desc {
             font-size: 11px;
-            opacity: 0.75;
-            margin-bottom: 4px;
-            line-height: 1.3;
+            opacity: 0.8;
+            line-height: 1.4;
+            white-space: pre-line;
+            margin-top: 2px;
         }
 
         .product-price {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            opacity: 0.8;
+            opacity: 0.85;
+            margin-top: 2px;
         }
 
         .add-btn {
             background-color: var(--dark-color);
             color: var(--white);
             border: none;
-            border-radius: 10px;
-            padding: 8px 14px;
+            border-radius: 8px;
+            padding: 8px 12px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             flex-shrink: 0;
         }
 
-        /* زر السلة العائم */
         .floating-cart {
             position: fixed;
-            bottom: 35px;
+            bottom: 30px;
             background-color: var(--dark-color);
             color: var(--white);
-            padding: 12px 25px;
-            border-radius: 30px;
+            padding: 10px 20px;
+            border-radius: 25px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             z-index: 101;
             display: none;
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        /* النماذج والدفع */
         .form-group {
             width: 100%;
-            margin-bottom: 15px;
-            text-align: right;
+            margin-bottom: 12px;
         }
 
         .form-group label {
             display: block;
             font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 14px;
+            margin-bottom: 4px;
+            font-size: 13px;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 2px solid var(--dark-color);
-            border-radius: 12px;
+            border-radius: 10px;
             box-sizing: border-box;
             font-family: inherit;
             background-color: var(--white);
+            font-size: 14px;
         }
 
         .payment-options {
             display: flex;
             gap: 10px;
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .pay-option {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border: 2px solid var(--dark-color);
-            border-radius: 12px;
+            border-radius: 10px;
             background: var(--white);
             font-weight: bold;
             cursor: pointer;
             text-align: center;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .pay-option.selected {
@@ -268,24 +304,24 @@
 
         .back-link {
             align-self: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             background: none;
             border: none;
             font-weight: bold;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 14px;
             color: var(--dark-color);
         }
 
         .social-icons {
             display: flex;
-            gap: 20px;
-            margin-top: 25px;
+            gap: 15px;
+            margin-top: 20px;
         }
 
         .social-icon {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background-color: var(--white);
             border: 2px solid var(--dark-color);
             border-radius: 50%;
@@ -294,8 +330,8 @@
             justify-content: center;
             text-decoration: none;
             color: var(--dark-color);
-            font-size: 18px;
-            box-shadow: 0 3px 0px var(--dark-color);
+            font-size: 16px;
+            box-shadow: 0 2px 0px var(--dark-color);
         }
     </style>
 </head>
@@ -305,141 +341,266 @@
 
     <div class="container">
         
+        <!-- زر تبديل اللغة -->
+        <div class="lang-switch-container">
+            <button class="lang-btn" id="lang-toggle-btn" onclick="toggleLanguage()">English</button>
+        </div>
+
         <!-- الواجهة الرئيسية -->
         <div id="screen-home" class="screen active">
             <div class="logo-title">Flora Matcha</div>
-            <div class="logo-subtitle">Good Matcha • Good Mood 🌿</div>
+            <div class="logo-subtitle" data-tr="subtitle">Good Matcha • Good Mood 🌿</div>
 
             <div class="options-menu">
-                <button class="menu-btn" onclick="goToMenu('الطلب العادي / استلام من المنزل')">
-                    <span>🍵 الطلب العادي / استلام من المنزل</span>
+                <button class="menu-btn" onclick="goToMenu('home')">
+                    <span data-tr="opt1">🍵 الطلب العادي / استلام من المنزل</span>
                     <span>‹</span>
                 </button>
-                <button class="menu-btn" onclick="goToMenu('توصيل / Delivery')">
-                    <span>🚗 توصيل / Delivery</span>
+                <button class="menu-btn" onclick="goToMenu('delivery')">
+                    <span data-tr="opt2">🚗 توصيل / Delivery</span>
                     <span>‹</span>
                 </button>
-                <button class="menu-btn" onclick="goToMenu('إرسال هدية / Send a Gift')">
-                    <span>🎁 إرسال هدية / Send a Gift</span>
+                <button class="menu-btn" onclick="goToMenu('gift')">
+                    <span data-tr="opt3">🎁 إرسال هدية / Send a Gift</span>
                     <span>‹</span>
                 </button>
             </div>
 
             <div class="social-icons">
-                <a href="https://instagram.com/Flora_matcha" target="_blank" class="social-icon" title="انستجرام">📷</a>
-                <a href="tel:+96891213020" class="social-icon" title="اتصال">📞</a>
+                <a href="https://instagram.com/Flora_matcha" target="_blank" class="social-icon" title="Instagram">📷</a>
+                <a href="tel:+96891213020" class="social-icon" title="Call">📞</a>
             </div>
         </div>
 
         <!-- شاشة المنيو -->
         <div id="screen-menu" class="screen">
-            <button class="back-link" onclick="showScreen('screen-home')">‹ رجوع للرئيسية</button>
-            <div class="logo-title" style="font-size: 24px;">المنيو 🍃</div>
-            <div id="order-type-badge" style="font-size: 13px; font-weight: bold; margin-bottom: 15px; opacity: 0.8;"></div>
+            <button class="back-link" onclick="showScreen('screen-home')" data-tr="backHome">‹ رجوع للرئيسية</button>
+            <div class="logo-title" style="font-size: 22px;" data-tr="menuTitle">المنيو 🍃</div>
+            <div id="order-type-badge" style="font-size: 12px; font-weight: bold; margin-bottom: 12px; opacity: 0.8;"></div>
 
-            <!-- أزرار التنقل بين الصفحات (مشروبات / ملحقات) -->
             <div class="category-tabs">
-                <div id="tab-drinks" class="cat-tab active-tab" onclick="switchCategory('drinks')">🥤 المشروبات</div>
-                <div id="tab-extras" class="cat-tab" onclick="switchCategory('extras')">✨ الملحقات والباودر</div>
+                <div id="tab-drinks" class="cat-tab active-tab" onclick="switchCategory('drinks')" data-tr="tabDrinks">🥤 المشروبات</div>
+                <div id="tab-extras" class="cat-tab" onclick="switchCategory('extras')" data-tr="tabExtras">✨ الملحقات والباودر</div>
             </div>
 
-            <div id="products-list" style="width: 100%;">
-                <!-- يتم تعبئة المنتجات تلقائياً حسب القسم -->
+            <div id="extras-notice" class="notice-box" style="display: none;">
+                <p>📌 <strong data-tr="noticeTitle">ملاحظة هامة:</strong></p>
+                <p data-tr="notice1">• مبلغ التوصيل غير ثابت يحدد المندوب بعد استقبال الطلب.</p>
+                <p data-tr="notice2">• يرجى الطلب قبل بساعتان أو أكثر للتنسيق مع المندوب.</p>
             </div>
+
+            <div id="products-list" style="width: 100%;"></div>
         </div>
 
         <!-- شاشة إتمام الطلب والدفع -->
         <div id="screen-checkout" class="screen">
-            <button class="back-link" onclick="showScreen('screen-menu')">‹ العودة للمنيو</button>
-            <div class="logo-title" style="font-size: 24px;">إتمام الطلب 🛒</div>
+            <button class="back-link" onclick="showScreen('screen-menu')" data-tr="backMenu">‹ العودة للمنيو</button>
+            <div class="logo-title" style="font-size: 22px;" data-tr="checkoutTitle">إتمام الطلب 🛒</div>
 
-            <div style="width: 100%; background: var(--white); border: 2px solid var(--dark-color); border-radius: 12px; padding: 12px; margin-bottom: 15px; text-align: right;">
-                <strong>ملخص الطلب:</strong>
-                <div id="cart-summary" style="margin: 8px 0; font-size: 14px;"></div>
-                <div id="cart-total" style="font-weight: bold; border-top: 1px dashed #ccc; padding-top: 5px;"></div>
+            <div class="checkout-box" style="width: 100%; background: var(--white); border: 2px solid var(--dark-color); border-radius: 10px; padding: 10px; margin-bottom: 12px;">
+                <strong data-tr="orderSummary">ملخص الطلب:</strong>
+                <div id="cart-summary" style="margin: 6px 0; font-size: 13px;"></div>
+                <div id="cart-total" style="font-weight: bold; border-top: 1px dashed #ccc; padding-top: 4px; font-size: 13px;"></div>
+            </div>
+
+            <div class="notice-box">
+                <p>📌 <strong data-tr="noticeTitle">تنبيه للتوصيل:</strong></p>
+                <p data-tr="notice1">• مبلغ التوصيل غير ثابت يحدد المندوب بعد استقبال الطلب.</p>
+                <p data-tr="notice2">• يرجى الطلب قبل بساعتان أو أكثر للتنسيق مع المندوب.</p>
             </div>
 
             <div class="form-group">
-                <label>اسم الزبون:</label>
-                <input type="text" id="cust-name" class="form-control" placeholder="أدخل اسمك الكريم">
+                <label data-tr="labelName">اسم الزبون:</label>
+                <input type="text" id="cust-name" class="form-control" placeholder="">
             </div>
 
             <div class="form-group">
-                <label>رقم الهاتف:</label>
+                <label data-tr="labelPhone">رقم الهاتف:</label>
                 <input type="tel" id="cust-phone" class="form-control" placeholder="+968 ...">
             </div>
 
             <div class="form-group">
-                <label>العنوان / ملاحظات التوصيل أو الهدية:</label>
-                <textarea id="cust-address" class="form-control" rows="2" placeholder="اكتب تفاصيل العنوان أو ملاحظات الهدية"></textarea>
+                <label data-tr="labelAddress">العنوان / ملاحظات التوصيل أو الهدية:</label>
+                <textarea id="cust-address" class="form-control" rows="2" placeholder=""></textarea>
             </div>
 
             <div class="form-group">
-                <label>طريقة الدفع:</label>
+                <label data-tr="labelPayment">طريقة الدفع:</label>
                 <div class="payment-options">
-                    <div class="pay-option selected" id="pay-cash" onclick="setPayment('cash')">كاش عند الاستلام</div>
-                    <div class="pay-option" id="pay-transfer" onclick="setPayment('transfer')">تحويل عبر الرقم</div>
+                    <div class="pay-option selected" id="pay-cash" onclick="setPayment('cash')" data-tr="payCash">كاش عند الاستلام</div>
+                    <div class="pay-option" id="pay-transfer" onclick="setPayment('transfer')" data-tr="payTransfer">تحويل عبر الرقم</div>
                 </div>
             </div>
 
-            <!-- تفاصيل التحويل عبر رقم الهاتف -->
-            <div id="transfer-details" style="display: none; width: 100%; background: #fff3f5; border: 2px dashed var(--dark-color); border-radius: 12px; padding: 12px; margin-bottom: 15px; text-align: right;">
-                <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: bold;">التحويل عبر رقم الهاتف:</p>
-                <p style="margin: 0 0 5px 0; font-size: 14px;">يرجى تحويل المبلغ إلى الرقم: <strong style="direction: ltr; display: inline-block;">+968 9121 3020</strong></p>
-                <p style="margin: 0; font-size: 12px; color: #555;">ملاحظة: يرجى إرسال إيصال التحويل مباشرة في محادثة الواتساب بعد تأكيد الطلب 🌸</p>
+            <div id="transfer-details" class="transfer-box" style="display: none; width: 100%; background: #fff3f5; border: 2px dashed var(--dark-color); border-radius: 10px; padding: 10px; margin-bottom: 12px;">
+                <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: bold;" data-tr="transferTitle">التحويل عبر رقم الهاتف:</p>
+                <p style="margin: 0 0 4px 0; font-size: 13px;"><span data-tr="transferText">يرجى تحويل المبلغ إلى الرقم:</span> <strong style="direction: ltr; display: inline-block;">+968 9121 3020</strong></p>
+                <p style="margin: 0; font-size: 11px; color: #555;" data-tr="transferNote">ملاحظة: يرجى إرسال إيصال التحويل مباشرة في محادثة الواتساب بعد تأكيد الطلب 🌸</p>
             </div>
 
-            <button class="menu-btn" style="background-color: var(--dark-color); color: var(--white); width: 100%; justify-content: center; margin-top: 10px;" onclick="submitOrder()">تأكيد وإرسال الطلب عبر الواتساب 🌸</button>
+            <button class="menu-btn" style="background-color: var(--dark-color); color: var(--white); width: 100%; justify-content: center; margin-top: 5px;" onclick="submitOrder()" data-tr="submitBtn">تأكيد وإرسال الطلب عبر الواتساب 🌸</button>
         </div>
 
     </div>
 
-    <!-- زر السلة العائم -->
     <div id="floating-cart-btn" class="floating-cart" onclick="showScreen('screen-checkout')">
-        إتمام الطلب (<span id="cart-count">0</span> منتجات) - <span id="cart-total-badge">0.000</span> ر.ع
+        <span data-tr="cartCheckout">إتمام الطلب</span> (<span id="cart-count">0</span>) - <span id="cart-total-badge">0.000</span> <span data-tr="currency">ر.ع</span>
     </div>
 
     <div class="checker-border checker-bottom"></div>
 
     <script>
-        // قائمة المشروبات
+        let currentLang = 'ar';
+
+        const translations = {
+            ar: {
+                langBtn: "English",
+                subtitle: "Good Matcha • Good Mood 🌿",
+                opt1: "🍵 الطلب العادي / استلام من المنزل",
+                opt2: "🚗 توصيل / Delivery",
+                opt3: "🎁 إرسال هدية / Send a Gift",
+                backHome: "‹ رجوع للرئيسية",
+                menuTitle: "المنيو 🍃",
+                tabDrinks: "🥤 المشروبات",
+                tabExtras: "✨ الملحقات والباودر",
+                noticeTitle: "ملاحظة هامة:",
+                notice1: "• مبلغ التوصيل غير ثابت يحدد المندوب بعد استقبال الطلب.",
+                notice2: "• يرجى الطلب قبل بساعتان أو أكثر للتنسيق مع المندوب.",
+                backMenu: "‹ العودة للمنيو",
+                checkoutTitle: "إتمام الطلب 🛒",
+                orderSummary: "ملخص الطلب:",
+                labelName: "اسم الزبون:",
+                placeholderName: "أدخل اسمك الكريم",
+                labelPhone: "رقم الهاتف:",
+                labelAddress: "العنوان / ملاحظات التوصيل أو الهدية:",
+                placeholderAddress: "اكتب تفاصيل العنوان أو ملاحظات الهدية",
+                labelPayment: "طريقة الدفع:",
+                payCash: "كاش عند الاستلام",
+                payTransfer: "تحويل عبر الرقم",
+                transferTitle: "التحويل عبر رقم الهاتف:",
+                transferText: "يرجى تحويل المبلغ إلى الرقم:",
+                transferNote: "ملاحظة: يرجى إرسال إيصال التحويل مباشرة في محادثة الواتساب بعد تأكيد الطلب 🌸",
+                submitBtn: "تأكيد وإرسال الطلب عبر الواتساب 🌸",
+                cartCheckout: "إتمام الطلب",
+                currency: "ر.ع",
+                emptyCart: "لا توجد منتجات",
+                totalTitle: "المجموع الكلي: ",
+                orderTypes: {
+                    home: "الطلب العادي / استلام من المنزل",
+                    delivery: "توصيل / Delivery",
+                    gift: "إرسال هدية / Send a Gift"
+                }
+            },
+            en: {
+                langBtn: "العربية",
+                subtitle: "Good Matcha • Good Mood 🌿",
+                opt1: "🍵 Normal Order / Pickup",
+                opt2: "🚗 Delivery",
+                opt3: "🎁 Send a Gift",
+                backHome: "‹ Back to Home",
+                menuTitle: "Menu 🍃",
+                tabDrinks: "🥤 Drinks",
+                tabExtras: "✨ Extras & Powder",
+                noticeTitle: "Important Notice:",
+                notice1: "• Delivery fee is variable and determined by the driver after order submission.",
+                notice2: "• Please order 2 hours or more in advance to coordinate with the driver.",
+                backMenu: "‹ Back to Menu",
+                checkoutTitle: "Checkout 🛒",
+                orderSummary: "Order Summary:",
+                labelName: "Customer Name:",
+                placeholderName: "Enter your full name",
+                labelPhone: "Phone Number:",
+                labelAddress: "Address / Delivery or Gift Notes:",
+                placeholderAddress: "Enter address details or gift notes",
+                labelPayment: "Payment Method:",
+                payCash: "Cash on Delivery",
+                payTransfer: "Bank Transfer via Phone",
+                transferTitle: "Transfer via Phone Number:",
+                transferText: "Please transfer the amount to:",
+                transferNote: "Note: Please send the transfer receipt directly via WhatsApp after confirming the order 🌸",
+                submitBtn: "Confirm & Send via WhatsApp 🌸",
+                cartCheckout: "Checkout",
+                currency: "OMR",
+                emptyCart: "No products in cart",
+                totalTitle: "Total: ",
+                orderTypes: {
+                    home: "Normal Order / Pickup",
+                    delivery: "Delivery",
+                    gift: "Send a Gift"
+                }
+            }
+        };
+
         const drinksProducts = [
-            { id: 1, name: "Salted Vanilla Matcha", price: 1.600, img: "https://i.postimg.cc/rmZQBt3g/IMG-0888.png", category: "drinks" },
-            { id: 2, name: "Strawberry Matcha Latte", price: 1.700, img: "https://i.postimg.cc/bNj5010t/IMG-0890.png", category: "drinks" },
-            { id: 3, name: "Mango Matcha Latte", price: 1.800, img: "https://i.postimg.cc/qMkLMwXZ/IMG-0889.png", category: "drinks" },
-            { id: 4, name: "Salted caramel matcha latte", price: 1.800, img: "https://i.postimg.cc/50NjVmZw/IMG-0894.jpg", category: "drinks" },
-            { id: 5, name: "Crème Brûlée Matcha Latte", price: 1.900, img: "https://i.postimg.cc/W3zVvgY3/IMG-0891.jpg", category: "drinks" },
-            { id: 6, name: "Rose Matcha Latte", price: 1.700, img: "https://i.postimg.cc/KjyygwvS/IMG-0892.jpg", category: "drinks" },
-            { id: 7, name: "Cloudy Matcha Latte", price: 1.600, img: "https://i.postimg.cc/zGQ6g60M/IMG-0893.jpg", category: "drinks" },
-            { id: 8, name: "Classic Matcha Latte", price: 1.600, img: "https://i.postimg.cc/pd8GnT9k/IMG-0895.jpg", category: "drinks" },
-            { id: 9, name: "Matcha with Ice Cream Sandwich", price: 1.600, img: "https://i.postimg.cc/MHjvzh3K/IMG-0900.jpg", category: "drinks" }
+            { id: 1, name: { ar: "Salted Vanilla Matcha", en: "Salted Vanilla Matcha" }, price: 1.600, img: "https://i.postimg.cc/rmZQBt3g/IMG-0888.png" },
+            { id: 2, name: { ar: "Strawberry Matcha Latte", en: "Strawberry Matcha Latte" }, price: 1.700, img: "https://i.postimg.cc/bNj5010t/IMG-0890.png" },
+            { id: 3, name: { ar: "Mango Matcha Latte", en: "Mango Matcha Latte" }, price: 1.800, img: "https://i.postimg.cc/qMkLMwXZ/IMG-0889.png" },
+            { id: 4, name: { ar: "Salted caramel matcha latte", en: "Salted caramel matcha latte" }, price: 1.800, img: "https://i.postimg.cc/50NjVmZw/IMG-0894.jpg" },
+            { id: 5, name: { ar: "Crème Brûlée Matcha Latte", en: "Crème Brûlée Matcha Latte" }, price: 1.900, img: "https://i.postimg.cc/W3zVvgY3/IMG-0891.jpg" },
+            { id: 6, name: { ar: "Rose Matcha Latte", en: "Rose Matcha Latte" }, price: 1.700, img: "https://i.postimg.cc/KjyygwvS/IMG-0892.jpg" },
+            { id: 7, name: { ar: "Cloudy Matcha Latte", en: "Cloudy Matcha Latte" }, price: 1.600, img: "https://i.postimg.cc/zGQ6g60M/IMG-0893.jpg" },
+            { id: 8, name: { ar: "Classic Matcha Latte", en: "Classic Matcha Latte" }, price: 1.600, img: "https://i.postimg.cc/pd8GnT9k/IMG-0895.jpg" },
+            { id: 9, name: { ar: "Matcha with Ice Cream Sandwich", en: "Matcha with Ice Cream Sandwich" }, price: 1.600, img: "https://i.postimg.cc/MHjvzh3K/IMG-0900.jpg" },
+            { 
+                id: 18, 
+                name: { ar: "ماتشا ورد", en: "Rose Matcha" }, 
+                price: 3.800, 
+                img: "https://i.postimg.cc/xCMMTtS9/c076a8f0-ee66-4280-9e46-5383b80a4891.jpg", 
+                desc: { ar: "ماتشا لاتيه أي نوع + ورد", en: "Any Matcha Latte + Rose" } 
+            },
+            { 
+                id: 19, 
+                name: { ar: "تجميعة الماتشا (الغرشة)", en: "Matcha Pitcher Set" }, 
+                price: 6.000, 
+                img: "https://i.postimg.cc/mkdDbHkJ/3639c111-2192-47da-bc0e-359949681cf1.jpg", 
+                desc: { 
+                    ar: "• ماتشا كلاسيك أو فانيلا أو سولتي فانيلا:\n  - مع فوم: 6.500 ر.ع\n  - بدون فوم: 6 ر.ع\n\n• ماتشا مانجو أو فراولة أو كراميل:\n  - مع فوم: 6.500 ر.ع\n  - بدون فوم: 6 ر.ع\n\n(الغرشة تجي مع 6 سترو / 6 أكواب / استيكرات)\n• أريد ذا", 
+                    en: "• Classic, Vanilla or Salted Vanilla:\n  - With foam: 6.500 OMR\n  - Without foam: 6 OMR\n\n• Mango, Strawberry or Caramel:\n  - With foam: 6.500 OMR\n  - Without foam: 6 OMR\n\n(Pitcher comes with 6 straws / 6 cups / stickers)\n• I want this" 
+                } 
+            }
         ];
 
-        // قائمة الملحقات والباودر والبوكسات
         const extrasProducts = [
-            { 
-                id: 10, 
-                name: "بوكس الماتشا الكامل", 
-                price: 6.500, 
-                img: "https://i.postimg.cc/qvL0fMY5/IMG-0990.jpg", 
-                desc: "يحتوي على: ٥٠ جرام ماتشا باودر - سيروب - استيكرات - سترو - هدية بسيطة - كوب", 
-                category: "extras" 
-            },
-            { id: 11, name: "ماتشا لاتيه درجة عالية (50 جرام)", price: 6.500, img: "https://i.postimg.cc/qvpyGvZn/IMG-0883.png", desc: "", category: "extras" },
-            { id: 12, name: "ماتشا فاخرة (Ceremonial Grade)", price: 5.500, img: "https://i.postimg.cc/bYQZFjnB/IMG-0886.png", desc: "حجم العلبه: ميني", category: "extras" },
-            { id: 13, name: "ماتشا ويسك (منفاخ الخفق)", price: 2.900, img: "https://i.postimg.cc/dtsVHZwy/IMG-0885.jpg", desc: "", category: "extras" },
-            { id: 14, name: "ملعقة خشبية", price: 0.800, img: "https://i.postimg.cc/fTqD8H8f/IMG-0884.jpg", desc: "", category: "extras" },
-            { id: 15, name: "الكوب البلاستيك", price: 0.200, img: "https://i.postimg.cc/9Q5rFkz2/IMG-7750.jpg", desc: "", category: "extras" },
-            { id: 16, name: "الكوب الورقي", price: 0.200, img: "https://i.postimg.cc/GtTmbPCF/IMG-7751.jpg", desc: "", category: "extras" },
-            { id: 17, name: "سيروب فانيلا (50 ملي)", price: 1.000, img: "https://i.postimg.cc/ry7SxQzP/IMG-7752.jpg", desc: "", category: "extras" }
+            { id: 10, name: { ar: "بوكس الماتشا الكامل", en: "Complete Matcha Box" }, price: 6.500, img: "https://i.postimg.cc/qvL0fMY5/IMG-0990.jpg", desc: { ar: "يحتوي على: ٥٠ جرام - سيروب - استيكرات - سترو - هدية - كوب", en: "Includes: 50g - Syrup - Stickers - Straw - Gift - Cup" } },
+            { id: 11, name: { ar: "ماتشا لاتيه درجة عالية (50 جرام)", en: "High Grade Matcha Latte (50g)" }, price: 6.500, img: "https://i.postimg.cc/qvpyGvZn/IMG-0883.png", desc: { ar: "", en: "" } },
+            { id: 12, name: { ar: "ماتشا الاحتفالية", en: "Ceremonial Matcha" }, price: 5.500, img: "https://i.postimg.cc/bYQZFjnB/IMG-0886.png", desc: { ar: "حجم العلبه: ميني", en: "Box size: Mini" } },
+            { id: 13, name: { ar: "ماتشا ويسك (منفاخ الخفق)", en: "Matcha Whisk (Bamboo Chasen)" }, price: 2.900, img: "https://i.postimg.cc/dtsVHZwy/IMG-0885.jpg", desc: { ar: "", en: "" } },
+            { id: 14, name: { ar: "ملعقة خشبية", en: "Wooden Spoon" }, price: 0.800, img: "https://i.postimg.cc/fTqD8H8f/IMG-0884.jpg", desc: { ar: "", en: "" } },
+            { id: 15, name: { ar: "الكوب البلاستيك", en: "Plastic Cup" }, price: 0.200, img: "https://i.postimg.cc/9Q5rFkz2/IMG-7750.jpg", desc: { ar: "", en: "" } },
+            { id: 16, name: { ar: "الكوب الورقي", en: "Paper Cup" }, price: 0.200, img: "https://i.postimg.cc/GtTmbPCF/IMG-7751.jpg", desc: { ar: "", en: "" } },
+            { id: 17, name: { ar: "سيروب فانيلا (50 ملي)", en: "Vanilla Syrup (50ml)" }, price: 1.000, img: "https://i.postimg.cc/ry7SxQzP/IMG-7752.jpg", desc: { ar: "", en: "" } }
         ];
 
         const allProducts = [...drinksProducts, ...extrasProducts];
 
         let cart = {};
-        let currentOrderType = '';
+        let currentOrderTypeKey = '';
         let currentCategory = 'drinks';
         let paymentMethod = 'cash';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const htmlRoot = document.getElementById('html-root');
+            htmlRoot.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            htmlRoot.setAttribute('lang', currentLang);
+
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                let key = el.getAttribute('data-tr');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+
+            document.getElementById('cust-name').placeholder = translations[currentLang].placeholderName;
+            document.getElementById('cust-address').placeholder = translations[currentLang].placeholderAddress;
+
+            if (currentOrderTypeKey) {
+                document.getElementById('order-type-badge').innerText = (currentLang === 'ar' ? 'نوع الطلب: ' : 'Order Type: ') + translations[currentLang].orderTypes[currentOrderTypeKey];
+            }
+
+            renderProducts();
+            updateCartBar();
+        }
 
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -447,9 +608,9 @@
             window.scrollTo(0, 0);
         }
 
-        function goToMenu(type) {
-            currentOrderType = type;
-            document.getElementById('order-type-badge').innerText = 'نوع الطلب: ' + type;
+        function goToMenu(typeKey) {
+            currentOrderTypeKey = typeKey;
+            document.getElementById('order-type-badge').innerText = (currentLang === 'ar' ? 'نوع الطلب: ' : 'Order Type: ') + translations[currentLang].orderTypes[typeKey];
             switchCategory('drinks');
             showScreen('screen-menu');
         }
@@ -458,6 +619,7 @@
             currentCategory = cat;
             document.getElementById('tab-drinks').classList.toggle('active-tab', cat === 'drinks');
             document.getElementById('tab-extras').classList.toggle('active-tab', cat === 'extras');
+            document.getElementById('extras-notice').style.display = (cat === 'extras') ? 'block' : 'none';
             renderProducts();
         }
 
@@ -465,33 +627,38 @@
             let listToRender = (currentCategory === 'drinks') ? drinksProducts : extrasProducts;
             let listHTML = '';
 
-            listToRender.forEach(p => {
+            for (let i = 0; i < listToRender.length; i++) {
+                let p = listToRender[i];
                 let qty = cart[p.id] ? cart[p.id].qty : 0;
-                let descHTML = p.desc ? `<div class="product-desc">${p.desc}</div>` : '';
+                let itemName = p.name[currentLang];
+                let itemDesc = p.desc ? p.desc[currentLang] : '';
+                let descHTML = itemDesc ? `<div class="product-desc">${itemDesc}</div>` : '';
+                let addText = currentLang === 'ar' ? 'إضافة' : 'Add';
+                let currencyText = translations[currentLang].currency;
                 
                 listHTML += `
                     <div class="product-card">
                         <div class="product-info">
-                            <img src="${p.img}" class="product-img" alt="${p.name}">
-                            <div>
-                                <div class="product-name">${p.name}</div>
+                            <img src="${p.img}" class="product-img" alt="${itemName}" loading="lazy">
+                            <div class="product-details">
+                                <div class="product-name">${itemName}</div>
                                 ${descHTML}
-                                <div class="product-price">${p.price.toFixed(3)} ر.ع</div>
+                                <div class="product-price">${p.price.toFixed(3)} ${currencyText}</div>
                             </div>
                         </div>
                         <div>
                             ${qty === 0 ? 
-                                `<button class="add-btn" onclick="updateQty(${p.id}, 1)">إضافة</button>` :
-                                `<div style="display:flex; align-items:center; gap:8px;">
+                                `<button class="add-btn" onclick="updateQty(${p.id}, 1)">${addText}</button>` :
+                                `<div style="display:flex; align-items:center; gap:6px;">
                                     <button class="add-btn" onclick="updateQty(${p.id}, -1)">-</button>
-                                    <span style="font-weight:bold;">${qty}</span>
+                                    <span style="font-weight:bold; font-size:14px;">${qty}</span>
                                     <button class="add-btn" onclick="updateQty(${p.id}, 1)">+</button>
                                  </div>`
                             }
                         </div>
                     </div>
                 `;
-            });
+            }
             document.getElementById('products-list').innerHTML = listHTML;
             updateCartBar();
         }
@@ -511,9 +678,14 @@
         function updateCartBar() {
             let totalCount = 0;
             let totalPrice = 0;
+            let summaryHTML = '';
+            let currencyText = translations[currentLang].currency;
+
             for (let id in cart) {
+                let itemName = cart[id].name[currentLang];
                 totalCount += cart[id].qty;
                 totalPrice += cart[id].price * cart[id].qty;
+                summaryHTML += `<div>${itemName} (×${cart[id].qty}) - ${(cart[id].price * cart[id].qty).toFixed(3)} ${currencyText}</div>`;
             }
 
             const cartBar = document.getElementById('floating-cart-btn');
@@ -525,12 +697,8 @@
                 cartBar.style.display = 'none';
             }
 
-            let summaryHTML = '';
-            for (let id in cart) {
-                summaryHTML += `<div>${cart[id].name} (×${cart[id].qty}) - ${(cart[id].price * cart[id].qty).toFixed(3)} ر.ع</div>`;
-            }
-            document.getElementById('cart-summary').innerHTML = summaryHTML || 'لا توجد منتجات';
-            document.getElementById('cart-total').innerText = 'المجموع الكلي: ' + totalPrice.toFixed(3) + ' ر.ع';
+            document.getElementById('cart-summary').innerHTML = summaryHTML || translations[currentLang].emptyCart;
+            document.getElementById('cart-total').innerText = translations[currentLang].totalTitle + totalPrice.toFixed(3) + ' ' + currencyText;
         }
 
         function setPayment(method) {
@@ -546,38 +714,48 @@
             let address = document.getElementById('cust-address').value;
 
             if (!name || !phone) {
-                alert('الرجاء إدخال الاسم ورقم الهاتف لإتمام الطلب.');
+                alert(currentLang === 'ar' ? 'الرجاء إدخال الاسم ورقم الهاتف لإتمام الطلب.' : 'Please enter your name and phone number to complete the order.');
                 return;
             }
 
             let totalPrice = 0;
             let orderItemsText = '';
+            let currencyText = translations[currentLang].currency;
+
             for (let id in cart) {
                 let itemTotal = cart[id].price * cart[id].qty;
+                let itemName = cart[id].name[currentLang];
                 totalPrice += itemTotal;
-                orderItemsText += `- ${cart[id].name} (×${cart[id].qty}) : ${itemTotal.toFixed(3)} ر.ع\n`;
+                orderItemsText += `- ${itemName} (×${cart[id].qty}) : ${itemTotal.toFixed(3)} ${currencyText}\n`;
             }
 
-            let paymentText = (paymentMethod === 'cash') ? 'كاش عند الاستلام' : 'تحويل عبر الرقم (91213020) - سيتم إرسال الإيصال بالواتس';
+            let paymentText = paymentMethod === 'cash' 
+                ? (currentLang === 'ar' ? 'كاش عند الاستلام' : 'Cash on Delivery') 
+                : (currentLang === 'ar' ? 'تحويل عبر الرقم (91213020)' : 'Bank Transfer via Phone (91213020)');
 
-            let message = `🌸 طلب جديد من موقع Flora Matcha 🌸\n\n` +
-                          `📌 نوع الطلب: ${currentOrderType}\n` +
-                          `👤 اسم الزبون: ${name}\n` +
-                          `📞 رقم الهاتف: ${phone}\n` +
-                          `📍 العنوان / الملاحظات: ${address || 'لا توجد'}\n` +
-                          `💳 طريقة الدفع: ${paymentText}\n\n` +
-                          `🛒 المنتجات:\n${orderItemsText}\n` +
-                          `💰 المجموع الكلي: ${totalPrice.toFixed(3)} ر.ع`;
+            let orderTypeText = translations[currentLang].orderTypes[currentOrderTypeKey];
 
-            if (paymentMethod === 'transfer') {
-                message += `\n\n(ملاحظة: تم إرسال طلب التحويل، وسأقوم بإرسال صورة الإيصال هنا فوراً)`;
-            }
+            let message = currentLang === 'ar' 
+                ? `🌸 طلب جديد من موقع Flora Matcha 🌸\n\n` +
+                  `📌 نوع الطلب: ${orderTypeText}\n` +
+                  `👤 اسم الزبون: ${name}\n` +
+                  `📞 رقم الهاتف: ${phone}\n` +
+                  `📍 العنوان / الملاحظات: ${address || 'لا توجد'}\n` +
+                  `💳 طريقة الدفع: ${paymentText}\n\n` +
+                  `🛒 المنتجات:\n${orderItemsText}\n` +
+                  `💰 المجموع الكلي: ${totalPrice.toFixed(3)} ر.ع`
+                : `🌸 New Order from Flora Matcha 🌸\n\n` +
+                  `📌 Order Type: ${orderTypeText}\n` +
+                  `👤 Customer Name: ${name}\n` +
+                  `📞 Phone Number: ${phone}\n` +
+                  `📍 Address / Notes: ${address || 'None'}\n` +
+                  `💳 Payment Method: ${paymentText}\n\n` +
+                  `🛒 Items:\n${orderItemsText}\n` +
+                  `💰 Total: ${totalPrice.toFixed(3)} OMR`;
 
             let whatsappNumber = '96891213020';
             let encodedMessage = encodeURIComponent(message);
-            let whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-            window.open(whatsappURL, '_blank');
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
         }
     </script>
 </body>
